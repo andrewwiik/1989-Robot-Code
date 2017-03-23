@@ -50,15 +50,15 @@ public class RobotMap {
 	// Voltage Ramp Rate for Winch Motors
 	public static final double WINCH_VOLTAGE_RAMP_RATE = 30;
 	
-	public static CANTalon1989 driveFrontLeft = new CANTalon1989(3);
-	public static CANTalon1989 driveFrontRight = new CANTalon1989(9);
-	public static CANTalon1989 driveBackLeft = new CANTalon1989(7);
-	public static CANTalon1989 driveBackRight = new CANTalon1989(5);
-	public static CANTalon1989 winchLeft = new CANTalon1989(4);
-	public static CANTalon1989 winchRight = new CANTalon1989(2);
-	public static CANTalon1989 gearPusher = new CANTalon1989(6);
-	public static CANTalon1989 ballConveyor = new CANTalon1989(1);
-	public static CANTalon1989 ballOutputWheel = new CANTalon1989(10);
+	public static CANTalon1989 driveFrontLeft;
+	public static CANTalon1989 driveFrontRight;
+	public static CANTalon1989 driveBackLeft;
+	public static CANTalon1989 driveBackRight;
+	public static CANTalon1989 winchLeft;
+	public static CANTalon1989 winchRight;
+	public static CANTalon1989 gearPusher;
+	public static CANTalon1989 ballConveyor;
+	public static CANTalon1989 ballOutputWheel;
 	
 	public static void init() {
 		if (Robot.isReal()) {
@@ -72,7 +72,6 @@ public class RobotMap {
 			gearPusher = new CANTalon1989(GEAR_PUSHER_TALON);
 			ballConveyor = new CANTalon1989(BALL_CONVEYOR_TALON);
 			ballOutputWheel = new CANTalon1989(BALL_OUTPUT_WHEEL_TALON);
-			
 		} else {
 			
 		}
