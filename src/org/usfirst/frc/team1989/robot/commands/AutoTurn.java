@@ -2,6 +2,7 @@ package org.usfirst.frc.team1989.robot.commands;
 
 import org.usfirst.frc.team1989.robot.Robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class AutoTurn extends Command {
@@ -9,6 +10,8 @@ public class AutoTurn extends Command {
 	private final double diagonalOfRobot = 36.67;
 	private double inches, angle, voltage;
 	private boolean talonBrakingToggle;
+	private ADXRS450_Gyro gyro;
+	private static final double threshold = 2;
 	
 	public AutoTurn(double angle, double voltage, boolean talonBrakingToggle) {
 		this.angle = angle;
@@ -19,10 +22,13 @@ public class AutoTurn extends Command {
 		
 		this.talonBrakingToggle = talonBrakingToggle;
 		inches = Math.abs(diagonalOfRobot*Math.PI*this.angle/360.0);
+		
+		this.gyro = new ADXRS450_Gyro();
 	}
 	protected void initialize() {
     	Robot.mDrive.resetEncoders();
     	Robot.mDrive.toggleBreaks(talonBrakingToggle);
+    	this.gyro.reset();
     }
     
     protected void execute() {
@@ -30,13 +36,8 @@ public class AutoTurn extends Command {
     }
     
     protected boolean isFinished() {
-    	boolean done = false;
-    	if (inches >= 0) {
-    		done = (Math.abs(Robot.mDrive.getLeftEncoderValue()) * 73 > inches);
-    	} else {
-    		done = (Math.abs(Robot.mDrive.getLeftEncoderValue()) * 73 < inches);
-    	}
-    	return done;
+    	double offset = Math.abs(this.angle - this.gyro.getAngle());
+        return (offset < threshold);
     }
 
     protected void end() {
