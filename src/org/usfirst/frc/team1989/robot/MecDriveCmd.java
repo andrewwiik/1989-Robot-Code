@@ -44,6 +44,9 @@ public class MecDriveCmd implements cmd {
 		this.driveStick = driveStick;
 		this.driveFrontRight.setInverted(true);
 		this.driveBackRight.setInverted(true);
+		
+		this.driveBackLeft.setDistancePerPulse(encPulseRatio);
+		this.driveBackRight.setDistancePerPulse(encPulseRatio);
 	}
 	
 	// Check the values of each encorder and display it to the smart dashboard

@@ -12,6 +12,7 @@ public class CANTalon1989 extends CANTalon{
 	private double dSpeed = 0;
 	public int overcurrent = 0;
 	public double lastcurrent = 0;
+	private double distancePerPulse;
 	
 	public CANTalon1989(int deviceNumber, int controlPeriodMs, int enablePeriodMs) {
 		super(deviceNumber, controlPeriodMs, enablePeriodMs);
@@ -41,6 +42,14 @@ public class CANTalon1989 extends CANTalon{
 		super.setEncPosition(position);
 		this.setPosition(position);
 	}
+	
+	public void resetDistance() {
+		this.setEncPosition(0);
+	}
+	
+	public double getDistance() {
+		return this.getEncPosition() * this.distancePerPulse;
+	}
 
 	public void set(double speed)
 	{
@@ -69,6 +78,14 @@ public class CANTalon1989 extends CANTalon{
 	public String getSmartDashboardType() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public double getDistancePerPulse() {
+		return distancePerPulse;
+	}
+
+	public void setDistancePerPulse(double distancePerPulse) {
+		this.distancePerPulse = distancePerPulse;
 	}
 
 }
